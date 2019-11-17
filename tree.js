@@ -17,7 +17,6 @@ class Tree {
   addChild(key, meta) {
     const child = new Tree(key, meta, this);
     this.children.set(key, child);
-
     return child;
   }
 
@@ -49,32 +48,27 @@ class Tree {
     console.log([...map.values()]);
   }
 
-//* Решение учителя
-  // getDeepChild(keys) {
-  //   const [key, ...rest] = keys;
-  //   const node = this.getChild(key);
-  //   if (!node || rest.length === 0) {
-  //     return node;
-  //   }
-  //   return node.getDeepChild(rest);
-  // }
-
-  //? Разобрать как работает reduce
+  // * Решение учителя
   getDeepChild(keys) {
-    if (keys.length <= 0) return 'wrong path'; 
-    const newArr = keys.reduce((node, key) => node && node.getChild(key), this);
-    console.log(newArr);
+    const [key, ...rest] = keys;
+    const node = this.getChild(key);
+    if (!node || rest.length === 0) {
+      return node;
+    }
+    return node.getDeepChild(rest);
   }
 }
-const tree = new Tree("/");
+// const tree = new Tree("/");
 
-tree
-  .addChild("var")
-  .addChild("lib")
-  .addChild("run");
-tree.addChild("etc");
-tree.addChild("home");
+// tree
+//   .addChild("var")
+//   .addChild("lib")
+//   .addChild("run");
+// tree.addChild("etc");
+// tree.addChild("home");
 
 // const subtree = tree.getChild('var');
 // console.log(subtree);
 // console.log("my obj: ", tree);
+
+module.exports = { Tree };
